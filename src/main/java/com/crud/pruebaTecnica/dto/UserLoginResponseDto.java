@@ -9,9 +9,8 @@ import lombok.Setter;
 @Setter //agrega getters para enviar los atributos privados a otros package del programa
 @AllArgsConstructor //agrega constructores
 @NoArgsConstructor //agrega constructores vacíos
-public class UserResponseDto { //firma de la clase
-    //atributos de salida
+public class UserLoginResponseDto {
+    //atributos solicitados
     private Long id;
     private String username;
-    private String email;
 }

@@ -1,7 +1,9 @@
 package com.crud.pruebaTecnica.service;
 
-import com.crud.pruebaTecnica.dto.UserRequestDto;
-import com.crud.pruebaTecnica.dto.UserResponseDto;
+import com.crud.pruebaTecnica.dto.UserLoginDto;
+import com.crud.pruebaTecnica.dto.UserLoginResponseDto;
+import com.crud.pruebaTecnica.dto.UserRegisterDto;
+import com.crud.pruebaTecnica.dto.UserRegisterResponseDto;
 import com.crud.pruebaTecnica.mapper.UserMapper;
 import com.crud.pruebaTecnica.model.UserModel;
 import com.crud.pruebaTecnica.repository.UserRepository;
@@ -18,10 +20,18 @@ public class UserServiceImpl implements UserService {
 
 
     @Override //sobreescribir, para metodos publicos que se referencian en UserService
-    public UserResponseDto create(UserRequestDto userRequestDto) { //firma del metodo
-        UserModel userModel = userMapper.mapToModel(userRequestDto); //variable de tipo modelo que mapea a dto
+    public UserRegisterResponseDto create(UserRegisterDto userRegisterDto) { //firma del metodo
+        UserModel userModel = userMapper.mapToModelRegister(userRegisterDto); //variable de tipo modelo que mapea a dto
         UserModel userCreated = userRepository.save(userModel); // variable de tipo modelo que guarda el mapeo
-        UserResponseDto userResponseDto = userMapper.mapToDto(userCreated); //variable dto response que almacena el mapeo convertido en DTO (data transfer object)
-        return userResponseDto; // retorna el mapeo convertido a DTO
+        UserRegisterResponseDto userRegisterResponseDto = userMapper.mapToDtoRegister(userCreated); //variable dto response que almacena el mapeo convertido en DTO (data transfer object)
+        return userRegisterResponseDto; // retorna el mapeo convertido a DTO
+    }
+
+    @Override
+    public UserLoginResponseDto login(UserLoginDto userLoginDto) {
+        UserModel userModel = userMapper.mapToModelLogin(userLoginDto); //variable de tipo modelo que mapea a dto
+        UserModel userLogin = userRepository.save(userModel); // variable de tipo modelo que guarda el mapeo
+        UserLoginResponseDto userLoginResponseDto = userMapper.mapToDtoLogin(userLogin); //variable dto response que almacena el mapeo convertido en DTO (data transfer object)
+        return userLoginResponseDto;
     }
 }
